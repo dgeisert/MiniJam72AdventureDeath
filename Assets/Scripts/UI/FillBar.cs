@@ -24,6 +24,8 @@ public class FillBar : MonoBehaviour
     }
 
     [SerializeField] private bool lookAtCamera;
+    [SerializeField] private bool holdLocal = false;
+    [SerializeField] Vector3 holdAngle;
     public Color flytextUp, flytextDown;
     public float flytextSize;
     public float Percent
@@ -92,6 +94,14 @@ public class FillBar : MonoBehaviour
         if (LookAtCamera)
         {
             transform.LookAt(transform.position - lookTarget.position);
+        }
+        else if (holdLocal)
+        {
+            transform.localEulerAngles = holdAngle;
+        }
+        else
+        {
+            transform.eulerAngles = holdAngle;
         }
         if (Time.time > changeTime + pause)
         {

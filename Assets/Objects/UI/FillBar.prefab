@@ -159,6 +159,15 @@ MonoBehaviour:
   bg: {fileID: 2745436751597500036}
   fill: {fileID: 2745436751624532699}
   preFill: {fileID: 2745436750293204159}
+  fullValue: 100
+  currentValue: 100
+  flytext: 1
+  lookAtCamera: 0
+  holdLocal: 0
+  holdAngle: {x: 45, y: 0, z: 0}
+  flytextUp: {r: 0, g: 1, b: 0, a: 1}
+  flytextDown: {r: 1, g: 0, b: 0, a: 1}
+  flytextSize: 8
 --- !u!1 &2745436750778848561
 GameObject:
   m_ObjectHideFlags: 0

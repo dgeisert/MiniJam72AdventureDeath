@@ -12,14 +12,6 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] private string data;
     Coroutine typingCoroutine;
 
-    void Update()
-    {
-        if (Controls.Shake)
-        {
-            Next();
-        }
-    }
-
     public void Next()
     {
         if (typing)
