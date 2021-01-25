@@ -8,7 +8,9 @@ public class ManagementControls : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] float speed = 8, scrollSpeed = 0.1f;
     [SerializeField] Vector3 mins, maxs;
-    public CharMovement selectedChar;
+    public List<CharMovement> selectedChar = new List<CharMovement>();
+    List<CharMovement> toSelect = new List<CharMovement>();
+    Coroutine doSelect;
 
     void Awake()
     {
@@ -68,39 +70,59 @@ public class ManagementControls : MonoBehaviour
                 //click
                 if (interactible != null)
                 {
-                    interactible?.Interact();
-                }
-                if (selectedChar != null)
-                {
-                    selectedChar.target = new Vector3(hit.point.x, 0, hit.point.z);
+                    interactible.Interact();
                 }
             }
             else if (Controls.RightClick)
             {
-                //right click
+                foreach (var c in selectedChar)
+                {
+                    c.target = new Vector3(hit.point.x, 0, hit.point.z);
+                }
             }
             else
             {
                 //hover
             }
         }
-        else
+    }
+
+    public void TargetEnemy(CharMovement targetEnemy)
+    {
+        foreach (var c in selectedChar)
         {
-            Debug.Log("Didn't hit land with click raycast");
+            c.targetChar = targetEnemy;
         }
     }
 
     public void SelectChar(CharMovement selection)
     {
-        if (selectedChar != null)
+        if (selectedChar.Contains(selection))
         {
-            if(selectedChar == selection)
-            {
-                cam.transform.position = selection.transform.position - cam.transform.forward * 10;
-            }
-            selectedChar.Deselect();
+            cam.transform.position = selection.transform.position - cam.transform.forward * 10;
         }
-        selectedChar = selection;
-        selectedChar.Select();
+        toSelect.Add(selection);
+        Debug.Log("Select");
+        foreach (var c in selectedChar)
+        {
+            c.Deselect();
+        }
+        if (doSelect == null)
+        {
+            doSelect = StartCoroutine(DoSelect());
+        }
+    }
+
+    IEnumerator DoSelect()
+    {
+        yield return null;
+        selectedChar = new List<CharMovement>();
+        foreach (var c in toSelect)
+        {
+            c.Select();
+            selectedChar.Add(c);
+        }
+        toSelect = new List<CharMovement>();
+        doSelect = null;
     }
 }

@@ -47,7 +47,6 @@ public class Game : MonoBehaviour
             {
                 Pause();
             }
-            Score += Time.deltaTime * Random.value * 100;
         }
     }
 

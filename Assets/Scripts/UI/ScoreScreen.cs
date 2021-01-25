@@ -20,6 +20,7 @@ public class ScoreScreen : MonoBehaviour
         victoryDisplay.gameObject.SetActive(victory);
         defeatDisplay.gameObject.SetActive(!victory);
         scoreText.text = Game.Score.ToString("#,#");
+        Leaderboard_SampleScript.Instance.PostScoreBttn();
     }
 
     public void Restart()

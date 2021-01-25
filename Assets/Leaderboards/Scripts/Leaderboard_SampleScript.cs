@@ -28,8 +28,8 @@ public class Leaderboard_SampleScript : MonoBehaviour
 		rankText.text = "Posting Score To Leaderboard...";
 		scoreText.text = "";
 		new GameSparks.Api.Requests.LogEventRequest()
-			.SetEventKey("SUBMIT_SCORE_" + leaderboardName)
-			.SetEventAttribute("SCORE", Game.Score.ToString())
+			.SetEventKey("NECRO")
+			.SetEventAttribute("NECRO", Game.Score.ToString())
 			.Send((response) =>
 			{
 
@@ -50,7 +50,7 @@ public class Leaderboard_SampleScript : MonoBehaviour
 		Debug.Log("Fetching Leaderboard Data...");
 
 		new GameSparks.Api.Requests.LeaderboardDataRequest()
-			.SetLeaderboardShortCode(leaderboardName + "_LEADERBOARD")
+			.SetLeaderboardShortCode("NECRO")
 			.SetEntryCount(25) // we need to parse this text input, since the entry count only takes long
 			.Send((response) =>
 			{
@@ -64,7 +64,7 @@ public class Leaderboard_SampleScript : MonoBehaviour
 					{
 						int rank = (int) entry.Rank; // we can get the rank directly
 						string playerName = entry.UserName;
-						string score = entry.JSONData["SCORE"].ToString(); // we need to get the key, in order to get the score
+						string score = entry.JSONData["NECRO"].ToString(); // we need to get the key, in order to get the score
 						rankText.text += rank + "\n"; // addd the score to the output text
 						scoreText.text += score + "\n";
 					}
